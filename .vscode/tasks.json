@@ -1,0 +1,55 @@
+{
+	"version": "2.0.0", 
+	"tasks": [
+		{
+			"label": "gcc compile",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+			  "-Command",
+			  "$files = Get-ChildItem -Filter *.c; gcc $files -o out"
+			],
+			"group":{
+				"kind": "build",
+				"isDefault": false
+			},
+			"problemMatcher":["$gcc"]
+		},
+		{
+			"label": "run output",
+			"type": "shell",
+			"command": "./out.exe",
+			"dependsOn":"gcc compile",
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"problemMatcher":[]
+		},
+		{
+			"label": "clean",
+			"type": "shell",
+			"command": "del *.o && del *.exe",
+			"group": {
+			  "kind": "none"
+			},
+			"options": {
+				"shell": {
+				  "executable": "C:\\Windows\\System32\\cmd.exe",  // Windows Command Prompt
+				  "args": ["/C"]
+				}
+			},
+			"problemMatcher": []
+		},
+		{
+			"label": "testing the env",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+			  "-Command",
+			  "$test = 'Hiiiiiiiiiii'; Write-Output $test"
+			]
+		}	
+
+	]
+}
