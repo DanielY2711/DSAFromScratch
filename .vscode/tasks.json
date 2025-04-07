@@ -7,7 +7,7 @@
 			"command": "powershell",
 			"args": [
 			  "-Command",
-			  "$files = Get-ChildItem -Filter *.c; gcc $files -o out"
+			  "$files = Get-ChildItem -Filter *.c; gcc $files -g -o out"
 			],
 			"group":{
 				"kind": "build",
@@ -47,8 +47,9 @@
 			"command": "powershell",
 			"args": [
 			  "-Command",
-			  "$test = 'Hiiiiiiiiiii'; Write-Output $test"
-			]
+			  "$test = 1; Write-Output $test"
+			],
+			"problemMatcher":[]
 		}	
 
 	]

@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include "LinkedList.h"
-int main(){
-    printf("Hello World \n");
+// int main(){
+//     printf("Hello World \n");
 
-    test();
+//     test();
     
-    return 0; 
-}
+//     return 0; 
+// }
