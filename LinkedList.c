@@ -179,30 +179,28 @@ void allocateAndDeallocate(void* value, size_t value_size){
 }
 
 
+// int main(){
 
-
-int main(){
-
-    LinkedListStruct* myLinkedList = InitLinkedList();
+//     LinkedListStruct* myLinkedList = InitLinkedList();
 
     
-    printf("Initial head and tail pointers %p, %p\n", myLinkedList->header_Node, myLinkedList->tail_Node); 
+//     printf("Initial head and tail pointers %p, %p\n", myLinkedList->header_Node, myLinkedList->tail_Node); 
 
-    int x = 1;
-    int y = 2;
-    int z = 3;
-    int a = 4;
+//     int x = 1;
+//     int y = 2;
+//     int z = 3;
+//     int a = 4;
 
-    insert_LL_End(myLinkedList, &x, sizeof(x));
-    insert_LL_End(myLinkedList, &y, sizeof(x));
-    insert_LL_Start(myLinkedList, &z, sizeof(x));
-    insert_LL_Start(myLinkedList, &a, sizeof(x));
+//     insert_LL_End(myLinkedList, &x, sizeof(x));
+//     insert_LL_End(myLinkedList, &y, sizeof(x));
+//     insert_LL_Start(myLinkedList, &z, sizeof(x));
+//     insert_LL_Start(myLinkedList, &a, sizeof(x));
     
-    pop_LL_Start(myLinkedList);
-    pop_LL_End(myLinkedList);
+//     pop_LL_Start(myLinkedList);
+//     pop_LL_End(myLinkedList);
     
 
-    destroy_LL(myLinkedList);
+//     destroy_LL(myLinkedList);
 
-    return 0;
-}
+//     return 0;
+// }

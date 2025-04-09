@@ -2,7 +2,7 @@
 	"version": "2.0.0", 
 	"tasks": [
 		{
-			"label": "gcc compile",
+			"label": "gcc compile all in folder",
 			"type": "shell",
 			"command": "powershell",
 			"args": [
@@ -16,16 +16,43 @@
 			"problemMatcher":["$gcc"]
 		},
 		{
-			"label": "run output",
+			"label": "run output all in folder",
 			"type": "shell",
 			"command": "./out.exe",
-			"dependsOn":"gcc compile",
+			"dependsOn":"gcc compile all in folder",
 			"group": {
 				"kind": "build",
 				"isDefault": true
 			},
 			"problemMatcher":[]
 		},
+		{
+			"label": "gcc compile custom",
+			"type": "shell",
+			"command": "gcc",
+			"args": [
+			  "${fileBasename}",
+			  "-g",
+			  "-o",
+			  "out.exe"
+			],
+			"group":{
+				"kind": "build",
+				"isDefault": false
+			},
+			"problemMatcher":["$gcc"]
+		},
+		{
+			"label": "run output custom",
+			"type": "shell",
+			"command": "./out.exe",
+			"dependsOn":"gcc compile custom",
+			"group": {
+				"kind": "build",
+				"isDefault": false
+			},
+			"problemMatcher":[]
+		},		
 		{
 			"label": "clean",
 			"type": "shell",
