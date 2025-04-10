@@ -1,5 +1,6 @@
 #include <stdio.h>
-//#include "util.h"
+#include "util.h"
+#include "HashFunction.h"
 
 static int alphabet_size = 26;
 static size_t char_size = sizeof(char);
@@ -19,8 +20,9 @@ a = alphabet size (maybe like character space)
 char(s) function that maps character to a unqieu code (ASCII)
 
 */
-int hash_String(char string[], int string_length, int hashspace_size){
+int hash_String(char* string, int hashspace_size){
 
+    int string_length = slen(string);
     int hashed_string = 0; 
 
     int multiplier = 1;
@@ -40,9 +42,10 @@ int hash_String(char string[], int string_length, int hashspace_size){
 }
 
 
-int main(){
-    printf("fart:%i\n", hash_String("fart", sizeof("fart")/char_size, 1009));
-    printf("shart:%i\n", hash_String("shart",sizeof("shart")/char_size, 1009));
-    printf("fart:%i\n", hash_String("fart",sizeof("fart")/char_size, 2003));
-    return 0;
-}
+// int main(){
+//     printf("fart:%i\n", hash_String("fart", 1009));
+//     printf("shart:%i\n", hash_String("shart", 1009));
+
+//     printf("fartt:%i\n", hash_String("fartt", 1009));
+//     return 0;
+// }

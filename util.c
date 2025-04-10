@@ -3,7 +3,7 @@
 #include <assert.h>
 #include <string.h>
 #include "util.h"
-
+#include <assert.h>
 int computeMaxPrime(int x){
     
     void *ptr = malloc(x);
@@ -37,16 +37,18 @@ int computeMaxPrime(int x){
     return last_prime; 
 }
 
+int slen(char* ptr){
+    int l = 0;
 
+    while (ptr[l] != '\0'){
+        l++;
+    }
+    return l; 
+}
 
-
-
-int main(){
-    int x = 2147483647;
-    printf("%i\n",x);
-    x++; 
-    printf("%i\n",x);
-
-    computeMaxPrime(x);
-    return 0; 
+void copy_memory(unsigned char* origin, unsigned char* destination, size_t data_size){
+    assert(origin != NULL && destination != NULL);
+    for (size_t i = 0; i < data_size; ++i){
+        destination[i] = origin[i];
+    }
 }

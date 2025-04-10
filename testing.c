@@ -1,9 +1,12 @@
 #include <stdio.h>
-#include "LinkedList.h"
-// int main(){
-//     printf("Hello World \n");
+#include <stdlib.h>
 
-//     test();
-    
-//     return 0; 
-// }
+
+void somefunc(void* val){
+    return; 
+}
+
+int main() {
+    somefunc((void*)&10);
+    return 0; 
+}

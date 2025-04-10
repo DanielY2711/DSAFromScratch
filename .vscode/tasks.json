@@ -32,6 +32,8 @@
 			"command": "gcc",
 			"args": [
 			  "${fileBasename}",
+			  "util.c",
+			  "HashFunction.c",
 			  "-g",
 			  "-o",
 			  "out.exe"
