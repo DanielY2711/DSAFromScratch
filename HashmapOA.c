@@ -16,33 +16,26 @@ typedef struct HashMapOA
 
 
 HashMapOA* init_HashMap_OA(int hashmapSize){
-    HashMapOA* newHashMap = malloc(sizeof(HashMapOA));
-    newHashMap->hashmap_size = hashmapSize;
-    newHashMap->data = malloc(oa_slot_size * hashmapSize);
+    HashMapOA* HashMap = malloc(sizeof(HashMapOA));
+    HashMap->hashmap_size = hashmapSize;
+    HashMap->data = malloc(oa_slot_size * hashmapSize);
     
-    for (int i = 0; i < hashmapSize; ++i){
-        *(newHashMap->data + i) = NULL; 
+    for (int i = 0; i < hashmapSize * 2; ++i){
+        *(HashMap->data + i) = NULL; 
     }
 
-    newHashMap->del = malloc(sizeof(void*));
-    return newHashMap;
+    HashMap->del = malloc(sizeof(void*));
+    return HashMap;
 }
 
 void destroy_HashMap_OA(HashMapOA* HashMap){
 
     // Scour the map for all allocated keys and value adresses
     void** current_adr = HashMap->data;
-    while (current_adr < HashMap->data + oa_slot_size * HashMap->hashmap_size){
-        if (*current_adr != NULL){
-            /* Issue here, the way we currently store things we lose the size of the value we are storing (which is a void*), need to store the 
-            value size somewhere
-            also we currenltly store hash values in slots, which is useless since it dosent help us resolve collisions, 
-            fix that as well.
-            */
-            free(**current_adr); 
-            printf("freed ptr %p\n", current_adr); 
+    for (size_t i = 0; i < HashMap->hashmap_size*2; ++i){
+        if (HashMap->data[i] != NULL && HashMap->data[i] != HashMap->del){
+            free(HashMap->data[i]);
         }
-        current_adr += adr_size; 
     }
     free(HashMap->data);
     free(HashMap->del);
@@ -54,10 +47,10 @@ void destroy_HashMap_OA(HashMapOA* HashMap){
 void add_Element_HashMap_OA(HashMapOA* HashMap, char* key, void* value, size_t value_size){
     int hash_value = hash_String(key, HashMap->hashmap_size);
     
-    void** slot = HashMap->data + oa_slot_size * hash_value;
-    void** limit = HashMap->data + oa_slot_size * HashMap->hashmap_size;
+    void** slot = HashMap->data + hash_value * 2;
+    void** limit = HashMap->data + HashMap->hashmap_size*2;
     while (slot < limit && *slot != 0 && *(int*)*slot != hash_value && *slot != HashMap->del){
-        slot += oa_slot_size; 
+        slot++; 
     }
 
     if (slot >= limit){
@@ -66,7 +59,7 @@ void add_Element_HashMap_OA(HashMapOA* HashMap, char* key, void* value, size_t v
     }
 
     void** key_adr = slot;
-    void** val_adr = slot + adr_size; 
+    void** val_adr = slot + 1; 
     // Found a valid slot so now we can store the value
     // Take space for key, unless already allocated
     if (*slot == 0 || *slot == HashMap->del){
