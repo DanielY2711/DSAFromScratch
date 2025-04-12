@@ -52,3 +52,13 @@ void copy_memory(unsigned char* origin, unsigned char* destination, size_t data_
         destination[i] = origin[i];
     }
 }
+
+
+int str_compare(char* str1, char* str2){
+    size_t i = 0;
+    while (str1[i] != 0 && str2[i] != 0 && str1[i] == str2[i]){
+        i++;
+    }
+
+    return str1[i] == 0 && str2[i] == 0; 
+}
