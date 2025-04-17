@@ -57,7 +57,11 @@ void add_Element_HashMap_OA(HashMapOA* HashMap, char* key, void* value, size_t v
     
     size_t slot = hash_value; 
 
-    while (slot < HashMap->hashmap_size && HashMap->data[slot] != 0 && HashMap->data[slot] != HashMap->del && !(str_compare(HashMap->data[slot]->key, key))){
+    while (slot < HashMap->hashmap_size && 
+        HashMap->data[slot] != 0 && 
+        HashMap->data[slot] != HashMap->del && 
+        !(str_compare(HashMap->data[slot]->key, key)))
+    {
         slot++; 
     }
 
@@ -92,13 +96,81 @@ void add_Element_HashMap_OA(HashMapOA* HashMap, char* key, void* value, size_t v
     copy_memory(value, HashMap->data[slot]->val, value_size);
 }
 
-int main(){
-    HashMapOA* myMap = init_HashMap_OA(2);
-    int x = 10;
-    int y = 15; 
-    add_Element_HashMap_OA(myMap, "fart", &x, sizeof(int)); 
-    add_Element_HashMap_OA(myMap, "fart", &y, sizeof(int)); 
-    destroy_HashMap_OA(myMap);
+size_t find_key_slot_Hashmap_OA(HashMapOA* HashMap, char* key){
+    int hash_value = hash_String(key, HashMap->hashmap_size);
+    size_t slot = hash_value; 
 
-    return 0; 
+    while (
+        slot < HashMap->hashmap_size && 
+        HashMap->data[slot] != 0 && 
+        (HashMap->data[slot] == HashMap->del || !(str_compare(HashMap->data[slot]->key, key)))
+        )
+    {
+        slot++; 
+    }
+
+    if (slot == HashMap->hashmap_size ||
+        HashMap->data[slot] == 0 ||
+        HashMap->data[slot] == HashMap->del ||
+        !(str_compare(HashMap->data[slot]->key, key))
+        )
+    {
+        printf("Not found\n");
+        return HashMap->hashmap_size;
+    }
+    printf("Found in slot %zu\n", slot);
+    return slot;
 }
+
+int check_Element_Hashmap_OA(HashMapOA* HashMap, char* key){
+    size_t slot = find_key_slot_Hashmap_OA(HashMap, key);
+    return slot==HashMap->hashmap_size ? 0 : 1; 
+}
+
+HOAPair* get_Element_HashMap_OA(HashMapOA* HashMap, char* key){
+    size_t slot = find_key_slot_Hashmap_OA(HashMap, key);
+    return slot == HashMap->hashmap_size ? 0 : HashMap->data[slot];
+}
+
+void delete_Element_HashMap_OA(HashMapOA* HashMap, char* key){
+    size_t slot = find_key_slot_Hashmap_OA(HashMap, key);
+
+    if (slot == HashMap->hashmap_size){
+        return;
+    }
+
+    HOAPair* pair = HashMap->data[slot];
+    free(pair->key);
+    free(pair->val);
+    free(HashMap->data[slot]);
+    HashMap->data[slot] = (HOAPair*)HashMap->del; 
+    return; 
+}
+
+// int main(){
+//     HashMapOA* myMap = init_HashMap_OA(3);
+//     int x = 10;
+//     int y = 15; 
+
+
+//     printf("Hashvalues %i, %i\n", hash_String("sartaaaa", 3), hash_String("srtaa",3));
+//     add_Element_HashMap_OA(myMap, "sartaaaa", &x, sizeof(int)); 
+//     add_Element_HashMap_OA(myMap, "srtaa", &y, sizeof(int)); 
+//     assert(check_Element_Hashmap_OA(myMap, "sartaaaa") == 1);
+//     assert(check_Element_Hashmap_OA(myMap, "srtaa") == 1);
+//     delete_Element_HashMap_OA(myMap, "sartaaaa");
+//     assert(check_Element_Hashmap_OA(myMap, "srtaa") == 1);
+//     add_Element_HashMap_OA(myMap, "sartaaaa", &x, sizeof(int)); 
+//     assert(check_Element_Hashmap_OA(myMap, "sartaaaa") == 1);
+
+
+
+
+
+
+
+
+
+//     destroy_HashMap_OA(myMap);
+//     return 0; 
+// }
