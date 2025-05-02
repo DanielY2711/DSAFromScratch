@@ -2,17 +2,10 @@
 #include <stdio.h>
 #include "util.h"
 #include "assert.h"
+#include "vector.h"
 
 
-typedef struct vector_index_data{
-    void* data;
-    size_t size;
-} vector_index_data;
 
-typedef struct vector{
-    size_t vector_size;
-    vector_index_data** index; 
-} vector;
 
 
 
@@ -82,31 +75,31 @@ void vector_append(vector* vector, void* data, size_t data_size){
     return; 
 }
 
-int main(){
+// int main(){
 
-    vector* myVec = init_vector(10);
+//     vector* myVec = init_vector(10);
 
-    assert(myVec->index[1] == NULL);
+//     assert(myVec->index[1] == NULL);
 
-    int x = 10;
-    vector_put_data(myVec, 1, &x, sizeof(int));
-    assert(*(int*)(myVec->index[1]->data) == 10);
+//     int x = 10;
+//     vector_put_data(myVec, 1, &x, sizeof(int));
+//     assert(*(int*)(myVec->index[1]->data) == 10);
 
 
-    x += 10;
-    vector_put_data(myVec, 2, &x, sizeof(int));
-    assert(*(int*)(myVec->index[2]->data) == 20);
+//     x += 10;
+//     vector_put_data(myVec, 2, &x, sizeof(int));
+//     assert(*(int*)(myVec->index[2]->data) == 20);
 
-    x += 9;
-    vector_append(myVec, &x, sizeof(int));
-    assert(*(int*)(myVec->index[10]->data) == 29);
-    assert(*(int*)(myVec->index[2]->data) == 20);
+//     x += 9;
+//     vector_append(myVec, &x, sizeof(int));
+//     assert(*(int*)(myVec->index[10]->data) == 29);
+//     assert(*(int*)(myVec->index[2]->data) == 20);
 
-    char str[] = "fart";
-    vector_append(myVec, &str, slen(str) + 1);
-    printf("%s\n", (char*)(myVec->index[11]->data));
-    assert(str_compare((char*)(myVec->index[11]->data), "fart") == 1);
-    destroy_vector(myVec);
+//     char str[] = "fart";
+//     vector_append(myVec, &str, slen(str) + 1);
+//     printf("%s\n", (char*)(myVec->index[11]->data));
+//     assert(str_compare((char*)(myVec->index[11]->data), "fart") == 1);
+//     destroy_vector(myVec);
 
-    return 0;
-}
+//     return 0;
+// }

@@ -1,0 +1,4 @@
+priority queues - need heap first, vector already done
+quicksort, mergesort
+djiskarta algorithm
+
